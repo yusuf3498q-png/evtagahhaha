@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+import os
 
-app = Flask(__name__)
+# Flask'a diyoruz ki: "HTML dosyasını templates klasöründe değil, direkt benim yanımda ara"
+app = Flask(__name__, template_folder='.')
 
 # ============================================================
 # SENİN GÜNCEL BİLGİLERİN
@@ -24,7 +26,6 @@ def telegram_mesaj_gonder(mesaj):
 
 @app.route('/')
 def ana_sayfa():
-    # HTML dosyasını templates klasöründen değil, direkt ana dizinden oku
     return render_template('index.html')
 
 @app.route('/api/guvenlik', methods=['POST'])
