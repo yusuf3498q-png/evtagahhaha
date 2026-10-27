@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify
 import requests
-import os
 
+# Flask klasör ayarlarıyla uğraşmıyoruz, direkt çalışacak
 app = Flask(__name__)
 
 # ============================================================
@@ -23,11 +23,9 @@ def telegram_mesaj_gonder(mesaj):
         print("Bağlantı Hatası:", e)
         return False
 
-# HTML'i "index.html" olarak doğrudan ana dizinden gönder
 @app.route('/')
 def ana_sayfa():
-    # Flask'ın kendi render_template'ini kullanmak yerine direkt dosyayı yolla
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'index.html')
+    return render_template('index.html')
 
 @app.route('/api/guvenlik', methods=['POST'])
 def guvenlik():
