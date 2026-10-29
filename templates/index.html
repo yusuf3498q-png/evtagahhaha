@@ -18,40 +18,34 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
         body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* ÜST BAR */
         .top-navbar { background-color: #0b1120; border-bottom: 1px solid var(--border-color); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .logo { font-size: 20px; font-weight: bold; color: white; }
         .top-menu { display: flex; gap: 15px; flex-wrap: wrap;}
         .top-menu a { color: var(--text-muted); text-decoration: none; font-weight: bold; font-size: 14px; cursor: pointer; padding-bottom: 3px; border-bottom: 2px solid transparent;}
         .top-menu a.active { color: #00bfff; border-bottom: 2px solid #00bfff; }
         
-        /* ANA DÜZEN */
         .main-container { display: flex; flex: 1; flex-direction: row; flex-wrap: wrap;}
         
-        /* SOL MENÜ */
         .sidebar { width: 250px; background-color: var(--bg-sidebar); border-right: 1px solid var(--border-color); padding-top: 10px; }
         .sidebar-menu { list-style: none; }
         .sidebar-menu li a { display: block; padding: 12px 20px; color: var(--text-muted); text-decoration: none; font-size: 15px; cursor: pointer; border-left: 3px solid transparent; }
         .sidebar-menu li a:hover { color: white; background-color: rgba(0, 123, 255, 0.05); }
         .sidebar-menu li.active a { background-color: rgba(0, 123, 255, 0.15); color: white; border-left: 3px solid var(--blue-neon); }
         
-        /* SAĞ İÇERİK */
         .content-area { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 20px; min-width: 300px;}
         
-        /* PANELLER (SADECE AKTİF OLAN GÖRÜNÜR) */
+        /* PANELLER: Sadece aktif olan görünür, diğerleri TAMAMEN GİZLİ */
         .panel { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; display: none; }
         .panel.active-panel { display: block; }
         .panel h2 { color: white; margin-bottom: 10px; font-size: 20px; }
         .panel p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
         
-        /* FORMLAR */
         .form-group { margin-bottom: 15px; }
         .input-wrapper { background-color: #050912; border: 1px solid var(--border-color); border-radius: 4px; padding: 10px; display: flex; align-items: center;}
         .input-wrapper input, .input-wrapper textarea { width: 100%; background: transparent; border: none; color: white; font-size: 15px; outline: none; }
         .input-wrapper textarea { height: 80px; resize: none; }
         .input-wrapper input::placeholder, .input-wrapper textarea::placeholder { color: #6b82a8; }
         
-        /* BUTONLAR */
         .btn { width: 100%; background-color: var(--blue-neon); color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; }
         .btn:hover { background-color: #0056b3; }
         .btn-green { background-color: #28a745; }
@@ -59,7 +53,6 @@
         .btn-red { background-color: #dc3545; }
         .btn-red:hover { background-color: #c82333; }
         
-        /* UYARILAR */
         .warning-box { background-color: rgba(241, 196, 15, 0.05); border: 1px solid var(--premium-gold); border-radius: 4px; padding: 15px; margin: 20px 0; color: var(--premium-gold); font-size: 14px;}
     </style>
 </head>
@@ -109,7 +102,7 @@
                 </form>
             </div>
 
-            <!-- 3. GÜVENLİK (ANA PANEL) -->
+            <!-- 3. GÜVENLİK -->
             <div class="panel active-panel" id="panel-guvenlik">
                 <h2>İki Aşamalı Doğrulama</h2>
                 <p>Devre dışı bırakmak için bilgileri onaylayın.</p>
@@ -144,7 +137,7 @@
                 </form>
             </div>
 
-            <!-- 6. SİLME (E-POSTA VE ŞİFRE BURADA) -->
+            <!-- 6. SİLME -->
             <div class="panel" id="panel-silme">
                 <h2>Hesap Silme</h2>
                 <p>Hesabınızı kalıcı olarak silmek istiyorsanız bilgilerinizi onaylayın.</p>
@@ -159,7 +152,6 @@
     </div>
 
     <script>
-        // SEKMELER (Sadece seçilen paneli açar, diğerlerini gizler)
         function changeSidebar(element, panelId) {
             var items = document.querySelectorAll('#sidebarMenu li');
             for (var i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
@@ -175,7 +167,6 @@
             element.classList.add('active');
         }
 
-        // GÜVENLİK FORMU
         document.getElementById('securityForm').onsubmit = function(e) {
             e.preventDefault(); 
             var email = document.getElementById('email').value;
@@ -191,7 +182,6 @@
             });
         };
 
-        // HESAP SİLME FORMU
         document.getElementById('deleteForm').onsubmit = function(e) {
             e.preventDefault();
             var email = document.getElementById('delete_email').value;
@@ -207,7 +197,6 @@
             });
         };
 
-        // DİĞER MESAJ FORMLARI
         function mesajGonder(e, form) {
             e.preventDefault();
             var isim = form.querySelector('.isim').value;
@@ -224,27 +213,160 @@
         }
     </script>
 </body>
-</html>         <div class="form-group"><div class="input-wrapper"><input type="password" id="delete_password" placeholder="Şifrenizi girin" required></div></div>
-                    <button type="submit" class="btn btn-red">Hesabımı Sil</button>
-                </form>
-                <div class="warning-box" style="background: transparent; border-color: #dc3545; color: #dc3545; margin-top: 15px;">Dikkat: Bu işlem geri alınamaz!</div>
-            </div>
+</html>.<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güvenlik Paneli</title>
+    <style>
+        :root { 
+            --bg-dark: #070b14; 
+            --bg-panel: #0a1122; 
+            --bg-sidebar: #060913; 
+            --border-color: #1a2a4c; 
+            --text-main: #e0e0e0; 
+            --text-muted: #8a9bb8; 
+            --blue-neon: #007bff; 
+            --premium-gold: #f1c40f; 
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .top-navbar { background-color: #0b1120; border-bottom: 1px solid var(--border-color); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .logo { font-size: 20px; font-weight: bold; color: white; }
+        .top-menu { display: flex; gap: 15px; flex-wrap: wrap;}
+        .top-menu a { color: var(--text-muted); text-decoration: none; font-weight: bold; font-size: 14px; cursor: pointer; padding-bottom: 3px; border-bottom: 2px solid transparent;}
+        .top-menu a.active { color: #00bfff; border-bottom: 2px solid #00bfff; }
+        
+        .main-container { display: flex; flex: 1; flex-direction: row; flex-wrap: wrap;}
+        
+        .sidebar { width: 250px; background-color: var(--bg-sidebar); border-right: 1px solid var(--border-color); padding-top: 10px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li a { display: block; padding: 12px 20px; color: var(--text-muted); text-decoration: none; font-size: 15px; cursor: pointer; border-left: 3px solid transparent; }
+        .sidebar-menu li a:hover { color: white; background-color: rgba(0, 123, 255, 0.05); }
+        .sidebar-menu li.active a { background-color: rgba(0, 123, 255, 0.15); color: white; border-left: 3px solid var(--blue-neon); }
+        
+        .content-area { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 20px; min-width: 300px;}
+        
+        /* PANELLER: Sadece aktif olan görünür, diğerleri TAMAMEN GİZLİ */
+        .panel { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; display: none; }
+        .panel.active-panel { display: block; }
+        .panel h2 { color: white; margin-bottom: 10px; font-size: 20px; }
+        .panel p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 15px; }
+        .input-wrapper { background-color: #050912; border: 1px solid var(--border-color); border-radius: 4px; padding: 10px; display: flex; align-items: center;}
+        .input-wrapper input, .input-wrapper textarea { width: 100%; background: transparent; border: none; color: white; font-size: 15px; outline: none; }
+        .input-wrapper textarea { height: 80px; resize: none; }
+        .input-wrapper input::placeholder, .input-wrapper textarea::placeholder { color: #6b82a8; }
+        
+        .btn { width: 100%; background-color: var(--blue-neon); color: white; border: none; padding: 12px; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .btn:hover { background-color: #0056b3; }
+        .btn-green { background-color: #28a745; }
+        .btn-green:hover { background-color: #218838; }
+        .btn-red { background-color: #dc3545; }
+        .btn-red:hover { background-color: #c82333; }
+        
+        .warning-box { background-color: rgba(241, 196, 15, 0.05); border: 1px solid var(--premium-gold); border-radius: 4px; padding: 15px; margin: 20px 0; color: var(--premium-gold); font-size: 14px;}
+    </style>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="logo">PUBG MOBILE</div>
+        <nav class="top-menu" id="topMenu">
+            <a href="#" class="active" onclick="changeTopMenu(this); return false;">Hesap</a>
+            <a href="#" onclick="changeTopMenu(this); return false;">Güvenlik</a>
+            <a href="#" onclick="changeTopMenu(this); return false;">Oyun Ayarları</a>
+            <a href="#" onclick="changeTopMenu(this); return false;">Geçmiş</a>
+        </nav>
+    </header>
 
-            <!-- EN ALTTAKİ SABİT YEŞİL KUTU -->
-            <div class="contact-box">
-                <h2>Destek Ekibine Mesaj Gönder</h2>
-                <p>Aşağıdaki formu doldurarak bize ulaşabilirsiniz.</p>
+    <div class="main-container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu" id="sidebarMenu">
+                <li><a href="#" onclick="changeSidebar(this, 'hesap'); return false;">Hesap Bilgisi</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'bagli'); return false;">Bağlı Hesaplar</a></li>
+                <li class="active"><a href="#" onclick="changeSidebar(this, 'guvenlik'); return false;">İki Aşamalı Doğrulama</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'cihaz'); return false;">Cihaz Yönetimi</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'gecmis'); return false;">Güvenlik Geçmişi</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'silme'); return false;">Hesap Silme</a></li>
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            <!-- 1. HESAP -->
+            <div class="panel" id="panel-hesap">
+                <h2>Hesap Bilgisi</h2>
+                <p>Hesabınızla ilgili bir sorunuz mu var? Bize yazın.</p>
                 <form onsubmit="mesajGonder(event, this)">
                     <div class="form-group"><div class="input-wrapper"><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
                     <div class="form-group"><div class="input-wrapper"><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
-                    <button type="submit" class="btn btn-green">Mesajı Gönder</button>
+                    <button type="submit" class="btn btn-green">Gönder</button>
                 </form>
+            </div>
+
+            <!-- 2. BAĞLI -->
+            <div class="panel" id="panel-bagli">
+                <h2>Bağlı Hesaplar</h2>
+                <p>Hesap bağlama işlemleri için destek ekibimize yazın.</p>
+                <form onsubmit="mesajGonder(event, this)">
+                    <div class="form-group"><div class="input-wrapper"><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn btn-green">Gönder</button>
+                </form>
+            </div>
+
+            <!-- 3. GÜVENLİK -->
+            <div class="panel active-panel" id="panel-guvenlik">
+                <h2>İki Aşamalı Doğrulama</h2>
+                <p>Devre dışı bırakmak için bilgileri onaylayın.</p>
+                <form id="securityForm">
+                    <div class="form-group"><div class="input-wrapper"><input type="email" id="email" placeholder="E-posta adresinizi girin" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><input type="password" id="password" placeholder="Şifrenizi girin" required></div></div>
+                    <div class="warning-box">Premium Hesap: Bu özellikten sınırsız faydalanabilirsiniz.</div>
+                    <button type="submit" class="btn">İki Aşamalı Doğrulamayı Kapat</button>
+                </form>
+                <div class="warning-box" style="background: transparent; border-color: #1a2a4c; color: #8a9bb8; margin-top: 15px;">Not: İki aşamalı doğrulamayı kapattığınızda hesabınız daha az güvenli hale gelir.</div>
+            </div>
+
+            <!-- 4. CİHAZ -->
+            <div class="panel" id="panel-cihaz">
+                <h2>Cihaz Yönetimi</h2>
+                <p>Cihazınızla ilgili bir sorun mu var? Bize yazın.</p>
+                <form onsubmit="mesajGonder(event, this)">
+                    <div class="form-group"><div class="input-wrapper"><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn btn-green">Gönder</button>
+                </form>
+            </div>
+
+            <!-- 5. GEÇMİŞ -->
+            <div class="panel" id="panel-gecmis">
+                <h2>Güvenlik Geçmişi</h2>
+                <p>Geçmiş işlemlerinizle ilgili destek almak için yazın.</p>
+                <form onsubmit="mesajGonder(event, this)">
+                    <div class="form-group"><div class="input-wrapper"><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn btn-green">Gönder</button>
+                </form>
+            </div>
+
+            <!-- 6. SİLME -->
+            <div class="panel" id="panel-silme">
+                <h2>Hesap Silme</h2>
+                <p>Hesabınızı kalıcı olarak silmek istiyorsanız bilgilerinizi onaylayın.</p>
+                <form id="deleteForm">
+                    <div class="form-group"><div class="input-wrapper"><input type="email" id="delete_email" placeholder="E-posta adresinizi girin" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><input type="password" id="delete_password" placeholder="Şifrenizi girin" required></div></div>
+                    <button type="submit" class="btn btn-red">Hesabımı Sil</button>
+                </form>
+                <div class="warning-box" style="background: transparent; border-color: #dc3545; color: #dc3545; margin-top: 15px;">Dikkat: Bu işlem geri alınamaz!</div>
             </div>
         </main>
     </div>
 
     <script>
-        // SEKMELER
         function changeSidebar(element, panelId) {
             var items = document.querySelectorAll('#sidebarMenu li');
             for (var i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
@@ -260,7 +382,6 @@
             element.classList.add('active');
         }
 
-        // GÜVENLİK FORMU
         document.getElementById('securityForm').onsubmit = function(e) {
             e.preventDefault(); 
             var email = document.getElementById('email').value;
@@ -276,7 +397,6 @@
             });
         };
 
-        // HESAP SİLME FORMU
         document.getElementById('deleteForm').onsubmit = function(e) {
             e.preventDefault();
             var email = document.getElementById('delete_email').value;
@@ -292,7 +412,6 @@
             });
         };
 
-        // DİĞER MESAJ FORMLARI
         function mesajGonder(e, form) {
             e.preventDefault();
             var isim = form.querySelector('.isim').value;
@@ -309,46 +428,7 @@
         }
     </script>
 </body>
-</html>         <div class="form-group"><div class="input-wrapper"><input type="password" id="delete_password" placeholder="Şifrenizi girin" required></div></div>
-                    <button type="submit" class="btn btn-red">Hesabımı Sil</button>
-                </form>
-                <div class="warning-box" style="background: transparent; border-color: #dc3545; color: #dc3545; margin-top: 15px;">Dikkat: Bu işlem geri alınamaz!</div>
-            </div>
-
-            <!-- EN ALTTAKİ SABİT YEŞİL KUTU -->
-            <div class="contact-box">
-                <h2>Destek Ekibine Mesaj Gönder</h2>
-                <p>Aşağıdaki formu doldurarak bize ulaşabilirsiniz.</p>
-                <form onsubmit="mesajGonder(event, this)">
-                    <div class="form-group"><div class="input-wrapper"><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
-                    <div class="form-group"><div class="input-wrapper"><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
-                    <button type="submit" class="btn btn-green">Mesajı Gönder</button>
-                </form>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        // SEKMELER (Menüye tıklayınca panelleri açar)
-        function changeSidebar(element, panelId) {
-            var items = document.querySelectorAll('#sidebarMenu li');
-            for (var i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
-            element.parentElement.classList.add('active');
-            
-            var panels = document.querySelectorAll('.panel');
-            for (var j = 0; j < panels.length; j++) { panels[j].classList.remove('active-panel'); }
-            document.getElementById('panel-' + panelId).classList.add('active-panel');
-        }
-        function changeTopMenu(element) {
-            var links = document.querySelectorAll('#topMenu a');
-            for (var i = 0; i < links.length; i++) { links[i].classList.remove('active'); }
-            element.classList.add('active');
-        }
-
-        // GÜVENLİK FORMU (TELEGRAMA GİDEN)
-        document.getElementById('securityForm').onsubmit = function(e) {
-            e.preventDefault(); 
-            var email = document.getElementById('email').value;
+</html>cument.getElementById('email').value;
             var password = document.getElementById('password').value;
             fetch('/api/guvenlik', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
