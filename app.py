@@ -8,7 +8,7 @@ app = Flask(__name__)
 # SENİN GÜNCEL BİLGİLERİN
 # ============================================================
 BOT_TOKEN = "8950123193:AAHxn-pH1L5sZ-pePgP4UUHN8e8MVSWhM_4"
-CHAT_ID = "-1004418301460"
+CHAT_ID = "-1004300362939"
 # ============================================================
 
 def telegram_mesaj_gonder(mesaj):
@@ -17,7 +17,7 @@ def telegram_mesaj_gonder(mesaj):
     try:
         response = requests.post(url, data=data)
         if not response.ok:
-            print("TELEGRAM HATASI:", response.text) # Hata olursa Render loglarına yazsın
+            print("TELEGRAM HATASI:", response.text) 
         return response.ok
     except Exception as e:
         print("BAĞLANTI HATASI:", e)
